@@ -21,7 +21,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="style.css?v=20260828a" />
+  <link rel="stylesheet" href="style.css?v=20260830" />
 
   <script type="application/ld+json">
   {
@@ -218,7 +218,7 @@
         <p>Écrivez-nous, on vous répond avec plaisir !</p>
       </div>
 
-      <form class="contact-form" action="https://formspree.io/f/xkjnogya" method="POST">
+      <form class="contact-form" id="contact-form" action="https://formspree.io/f/xkjnogya" method="POST">
         <div>
           <label for="contact-name">Nom</label>
           <input type="text" id="contact-name" name="name" autocomplete="name" required />
@@ -241,7 +241,9 @@
         </div>
         <button type="submit" class="btn btn-mango">Envoyer le message</button>
       </form>
-      <p class="contact-note">Vous préférez les e-mails ? Écrivez directement à <a href="mailto:megane@bligo.fr">megane@bligo.fr</a></p>
+      <p class="contact-status contact-status-success" id="contact-status-success" hidden>Votre message a bien été envoyé, on vous répond très vite !</p>
+      <p class="contact-status contact-status-error" id="contact-status-error" hidden>Une erreur est survenue, réessayez ou écrivez-nous directement à <a href="mailto:megane@bligo.fr">megane@bligo.fr</a>.</p>
+      <p class="contact-note" id="contact-note">Vous préférez les e-mails ? Écrivez directement à <a href="mailto:megane@bligo.fr">megane@bligo.fr</a></p>
     </div>
   </section>
 
@@ -266,6 +268,6 @@
     </div>
   </footer>
 
-  <script src="script.js?v=20260825b"></script>
+  <script src="script.js?v=20260830"></script>
 </body>
 </html>

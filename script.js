@@ -47,6 +47,41 @@ if (storeUrl) {
   });
 }
 
+// FORMULAIRE DE CONTACT : ENVOI EN AJAX (reste sur bligo.fr, pas de redirection Formspree)
+const contactForm = document.getElementById('contact-form');
+if (contactForm) {
+  const statusSuccess = document.getElementById('contact-status-success');
+  const statusError = document.getElementById('contact-status-error');
+  const submitBtn = contactForm.querySelector('button[type="submit"]');
+
+  contactForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    statusSuccess.hidden = true;
+    statusError.hidden = true;
+    submitBtn.disabled = true;
+
+    try {
+      const response = await fetch(contactForm.action, {
+        method: 'POST',
+        body: new FormData(contactForm),
+        headers: { 'Accept': 'application/json' },
+      });
+
+      if (response.ok) {
+        contactForm.hidden = true;
+        statusSuccess.hidden = false;
+        contactForm.reset();
+      } else {
+        statusError.hidden = false;
+        submitBtn.disabled = false;
+      }
+    } catch (err) {
+      statusError.hidden = false;
+      submitBtn.disabled = false;
+    }
+  });
+}
+
 // ACTIVE NAV LINK SELON LA PAGE
 const currentPage = (window.location.pathname.split('/').pop() || 'index.html');
 document.querySelectorAll('.nav-links a[href]').forEach(link => {
