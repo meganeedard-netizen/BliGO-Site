@@ -211,6 +211,81 @@ a { color: inherit; text-decoration: none; }
   filter: drop-shadow(0 20px 30px rgba(18, 63, 58, 0.18));
 }
 
+/* PHONE SCREENSHOT ANNOTEE (flèches + étiquettes, grand écran uniquement) */
+.phone-annotated {
+  position: relative;
+  width: 100%;
+  max-width: 260px;
+  margin: 0 auto;
+}
+
+.phone-annotated .phone-shot { max-width: none; margin: 0; }
+
+.annotate-lines {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: -140px;
+  width: 540px;
+  height: 100%;
+  pointer-events: none;
+}
+
+.annotate-lines line { stroke: var(--mango); stroke-width: 1.5; stroke-dasharray: 3 3; }
+
+.annotate-label {
+  display: none;
+  position: absolute;
+  width: 108px;
+  font-family: 'Inter', sans-serif;
+}
+
+.annotate-label .annotate-title {
+  display: block;
+  background: var(--ink);
+  border: 1.5px solid var(--white);
+  border-radius: 8px;
+  padding: 0.4rem 0.6rem;
+  box-shadow: 0 4px 10px rgba(18, 63, 58, 0.18);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--mango);
+  line-height: 1.25;
+}
+
+.annotate-label .annotate-tooltip {
+  display: block;
+  margin-top: 0.35rem;
+  background: var(--mango-50);
+  border-radius: 8px;
+  padding: 0.5rem 0.6rem;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--ink-soft);
+  line-height: 1.4;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-4px);
+  transition: opacity 0.15s, transform 0.15s;
+}
+
+.annotate-label:hover .annotate-tooltip,
+.annotate-label:focus .annotate-tooltip,
+.annotate-label:focus-within .annotate-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.annotate-label--tl { top: 58px; right: calc(100% + 20px); text-align: right; }
+.annotate-label--mr { top: 214px; left: calc(100% + 20px); text-align: left; }
+.annotate-label--bl { top: 401px; right: calc(100% + 20px); text-align: right; }
+.annotate-label--br { top: 443px; left: calc(100% + 20px); text-align: left; }
+
+@media (min-width: 1180px) {
+  .annotate-lines, .annotate-label { display: block; }
+}
+
 /* BUTTONS */
 .btn {
   display: inline-flex;
