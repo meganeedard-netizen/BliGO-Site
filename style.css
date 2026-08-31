@@ -221,12 +221,13 @@ a { color: inherit; text-decoration: none; }
 
 .phone-annotated .phone-shot { max-width: none; margin: 0; }
 
+.annotate-labels { display: none; }
+
 .annotate-label {
   display: none;
-  position: absolute;
-  width: 108px;
   font-family: 'Inter', sans-serif;
   text-align: center;
+  cursor: pointer;
   animation: annotate-float 3.6s ease-in-out infinite;
 }
 
@@ -283,13 +284,36 @@ a { color: inherit; text-decoration: none; }
   transform: translateY(0);
 }
 
-.annotate-label--tl { top: 58px; right: calc(100% + 20px); }
-.annotate-label--mr { top: 214px; left: calc(100% + 20px); }
-.annotate-label--bl { top: 401px; right: calc(100% + 20px); }
-.annotate-label--br { top: 443px; left: calc(100% + 20px); }
-
+/* Grand écran : pastilles positionnées autour du téléphone */
 @media (min-width: 1180px) {
-  .annotate-label { display: block; }
+  .annotate-labels { display: block; }
+  .annotate-label { display: block; position: absolute; width: 108px; }
+  .annotate-label--tl { top: 58px; right: calc(100% + 20px); }
+  .annotate-label--mr { top: 214px; left: calc(100% + 20px); }
+  .annotate-label--bl { top: 401px; right: calc(100% + 20px); }
+  .annotate-label--br { top: 443px; left: calc(100% + 20px); }
+}
+
+/* Mobile : pastilles en grille sous le téléphone, pour ne pas le laisser seul */
+@media (max-width: 860px) {
+  .annotate-labels {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.6rem;
+    margin-top: 1.5rem;
+  }
+  .annotate-label {
+    display: block;
+    position: static;
+    width: calc(50% - 0.3rem);
+    animation: none;
+  }
+  .annotate-label .annotate-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
 }
 
 /* BUTTONS */
