@@ -239,6 +239,21 @@ a { color: inherit; text-decoration: none; }
   width: 108px;
   font-family: 'Inter', sans-serif;
   text-align: center;
+  animation: annotate-float 3.6s ease-in-out infinite;
+}
+
+@keyframes annotate-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.annotate-label--tl { animation-delay: 0s; }
+.annotate-label--mr { animation-delay: 0.9s; }
+.annotate-label--bl { animation-delay: 1.8s; }
+.annotate-label--br { animation-delay: 2.7s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .annotate-label { animation: none; }
 }
 
 .annotate-label .annotate-title {
