@@ -423,6 +423,16 @@ a { color: inherit; text-decoration: none; }
 
 .contact-form button { justify-self: center; margin-top: 0.25rem; }
 
+.contact-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.1rem;
+}
+
+@media (max-width: 480px) {
+  .contact-form-row { grid-template-columns: 1fr; }
+}
+
 .contact-note { text-align: center; margin: 1.5rem 0 0; color: var(--ink-soft); font-size: 0.92rem; }
 .contact-note a { color: var(--mango-dark); font-weight: 700; }
 
