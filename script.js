@@ -22,31 +22,6 @@ if (burger && navLinks) {
   });
 }
 
-// BOUTON TELECHARGER : RACCOURCI VERS LE BON STORE
-// Sur mobile, le bouton de la nav envoie directement sur l'App Store ou le
-// Play Store. Sur ordinateur il garde son lien vers telecharger.html.
-// TODO: remplacer ces deux URLs par les vraies fiches store une fois l'app publiée.
-const APP_STORE_URL = 'https://apps.apple.com/fr/app/bligo/idXXXXXXXXX';
-const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=fr.bligo.app';
-
-function storeUrlForDevice() {
-  const ua = navigator.userAgent || '';
-  const isIOS = /iPad|iPhone|iPod/.test(ua) ||
-    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-  if (isIOS) return APP_STORE_URL;
-  if (/Android/.test(ua)) return PLAY_STORE_URL;
-  return null;
-}
-
-const storeUrl = storeUrlForDevice();
-if (storeUrl) {
-  document.querySelectorAll('.nav-cta').forEach(cta => {
-    cta.href = storeUrl;
-    cta.target = '_blank';
-    cta.rel = 'noopener';
-  });
-}
-
 // FORMULAIRE DE CONTACT : ENVOI EN AJAX (reste sur bligo.fr, pas de redirection Formspree)
 const contactForm = document.getElementById('contact-form');
 if (contactForm) {
