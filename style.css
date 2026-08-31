@@ -294,24 +294,31 @@ a { color: inherit; text-decoration: none; }
   .annotate-label--br { top: 85%; left: calc(100% + 20px); }
 }
 
-/* Mobile : le téléphone garde sa taille normale, pastilles en grille juste en dessous */
+/* Mobile : le téléphone garde sa taille normale, petites pastilles posées sur ses bords */
 @media (max-width: 860px) {
-  .annotate-labels {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.6rem;
-    margin-top: 1.5rem;
-  }
+  .annotate-labels { display: block; }
 
   .annotate-label {
     display: block;
-    position: static;
-    width: calc(50% - 0.3rem);
+    position: absolute;
+    width: 92px;
     animation: none;
+    z-index: 2;
+  }
+
+  .annotate-label--tl { top: 5%; left: -10px; }
+  .annotate-label--mr { top: 37%; right: -10px; }
+  .annotate-label--bl { top: 73%; left: -10px; }
+  .annotate-label--br { top: 83%; right: -10px; }
+
+  .annotate-label .annotate-title {
+    font-size: 0.62rem;
+    padding: 0.3rem 0.45rem;
   }
 
   .annotate-label .annotate-tooltip {
+    font-size: 0.6rem;
+    padding: 0.35rem 0.45rem;
     opacity: 1;
     visibility: visible;
     transform: none;
