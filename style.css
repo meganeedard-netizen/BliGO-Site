@@ -211,6 +211,16 @@ a { color: inherit; text-decoration: none; }
   filter: drop-shadow(0 20px 30px rgba(18, 63, 58, 0.18));
 }
 
+/* DEVICE MOCKUP SHOT (visuel large ordinateur/tablette/smartphone) */
+.device-shot {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  margin: 0 auto;
+  display: block;
+  filter: drop-shadow(0 20px 30px rgba(18, 63, 58, 0.18));
+}
+
 /* PHONE SCREENSHOT ANNOTEE (flèches + étiquettes, grand écran uniquement) */
 .phone-annotated {
   position: relative;
@@ -856,7 +866,7 @@ a { color: inherit; text-decoration: none; }
 
 /* MOBILE */
 @media (max-width: 860px) {
-  .phone-mockup, .phone-shot { order: -1; }
+  .phone-mockup, .phone-shot, .device-shot { order: -1; }
   .split { grid-template-columns: 1fr; }
 }
 
