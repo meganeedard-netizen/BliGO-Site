@@ -269,31 +269,6 @@ a { color: inherit; text-decoration: none; }
   text-align: center;
 }
 
-.annotate-label .annotate-tooltip {
-  display: block;
-  margin-top: 0.35rem;
-  background: var(--mango-50);
-  border-radius: 8px;
-  padding: 0.5rem 0.6rem;
-  font-size: 0.72rem;
-  font-weight: 500;
-  color: var(--ink-soft);
-  line-height: 1.4;
-  text-align: center;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-4px);
-  transition: opacity 0.15s, transform 0.15s;
-}
-
-.annotate-label:hover .annotate-tooltip,
-.annotate-label:focus .annotate-tooltip,
-.annotate-label:focus-within .annotate-tooltip {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-}
-
 /* Grand écran : pastilles positionnées autour du téléphone */
 @media (min-width: 1180px) {
   .annotate-labels { display: block; }
@@ -324,14 +299,6 @@ a { color: inherit; text-decoration: none; }
   .annotate-label .annotate-title {
     font-size: 0.62rem;
     padding: 0.3rem 0.45rem;
-  }
-
-  .annotate-label .annotate-tooltip {
-    font-size: 0.6rem;
-    padding: 0.35rem 0.45rem;
-    opacity: 1;
-    visibility: visible;
-    transform: none;
   }
 }
 
@@ -705,9 +672,11 @@ a { color: inherit; text-decoration: none; }
   background: var(--white);
   border: 1px solid var(--mango-100);
   border-radius: var(--radius);
-  padding: 1.75rem;
+  overflow: hidden;
 }
 
+.blog-card-img { display: block; width: 100%; height: 180px; object-fit: cover; }
+.blog-card-body { padding: 1.75rem; }
 .blog-card .section-tag { margin-bottom: 0.75rem; }
 .blog-card h3 { font-family: 'Poppins', sans-serif; font-size: 1.15rem; margin: 0 0 0.6rem; }
 .blog-card p { color: var(--ink-soft); font-size: 0.95rem; line-height: 1.55; margin: 0 0 1rem; }
