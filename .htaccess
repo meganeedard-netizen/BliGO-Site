@@ -1,0 +1,6 @@
+RewriteEngine On
+
+# Redirige www.bligo.fr et http:// vers https://bligo.fr (une seule adresse pour Google)
+RewriteCond %{HTTP_HOST} ^www\.bligo\.fr$ [NC,OR]
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://bligo.fr/$1 [R=301,L]
