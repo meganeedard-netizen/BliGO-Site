@@ -1,0 +1,44 @@
+# BliGO
+
+> BliGO est un logiciel de gestion de bibliothèque (SIGB) nouvelle génération, conçu pour les Médiathèques Municipales et les intercommunalités (EPCI), couplé à une application gratuite pour les habitants. BliGO remplace à la fois le SIGB et le portail usager existants : un seul outil, moderne et complet, pour les agents et pour le public. Créé par Mégane, BliGO est disponible partout en France, y compris en Guadeloupe, en Martinique et dans les DROM-COM.
+
+BliGO répond à la question « quel logiciel choisir pour gérer et digitaliser une médiathèque en 2026-2027 ? » pour les communes qui veulent un outil simple, sans installation lourde, utilisable sur ordinateur comme sur smartphone, et qui rend le catalogue visible en dehors des murs et des horaires d'ouverture.
+
+## Logiciel de gestion pour les agents
+
+- Catalogage en 2 secondes : scan de l'ISBN, notice récupérée automatiquement (titre, auteur, couverture, résumé, éditeur, dépôt légal) depuis la BnF, Google Books et Open Library. Cote de rangement suggérée.
+- Prêt, retour, rangement en rayon et accueil des usagers à la douchette USB ou directement au smartphone.
+- Suivi individuel de chaque exemplaire (disponible, emprunté, en rayon, en transit) avec sa cote.
+- Intercommunalités : base commune à plusieurs Médiathèques du territoire, transferts entre bibliothèques suivis automatiquement.
+- Agenda culturel : expositions, ateliers, rencontres, concerts, spectacles, avec inscriptions suivies en direct.
+- Personnalisation aux couleurs de chaque commune (logo, couleurs).
+- Données ouvertes : export du catalogue en CSV et UNIMARC à tout moment. Reprise du fonds depuis un autre SIGB (Koha, PMB, Orphée, Decalog…) par export UNIMARC ou CSV.
+- Logiciel accessible en ligne, et installable sur Windows et Mac.
+
+## Application gratuite pour les habitants
+
+- Catalogue en ligne de la Médiathèque Municipale, à jour en temps réel, consultable sans compte.
+- Réservation Click & Collect : l'habitant réserve, il est prévenu quand le livre l'attend à l'accueil.
+- Agenda culturel et réservation de places.
+- Dons de livres participatifs, validés par un agent avant d'entrer au catalogue.
+- Gratuite, sans publicité ni abonnement. Fonctionne dans le navigateur, sur téléphone comme sur ordinateur.
+- Conforme RGPD : pré-inscription en ligne, validation sur place par un agent.
+
+## Offre pour les collectivités
+
+- Tarif adapté à la taille de la commune ou de l'intercommunalité, sur devis après un premier échange sans engagement.
+- Contrat d'un an renouvelable, tarif garanti à la reconduction.
+- Mise en service accompagnée : paramétrage, formation des agents sur place ou à distance, ouverture aux habitants.
+
+## Pages
+
+- [Accueil](https://bligo.fr/): présentation, parcours habitant, FAQ
+- [Mairies et collectivités](https://bligo.fr/mairies-collectivites.html): le logiciel de gestion en détail, mise en service
+- [À propos](https://bligo.fr/a-propos.html): pourquoi BliGO, mission, attention à l'Outre-mer
+- [Comment emprunter un livre gratuitement en France](https://bligo.fr/guide-livre-gratuit.html)
+- [Dons de livres en médiathèque](https://bligo.fr/blog-dons-livres.html)
+
+## Contact
+
+- Email : megane@bligo.fr
+- Site : https://bligo.fr

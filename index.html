@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/png" href="img/bligo-icon.png" />
   <link rel="apple-touch-icon" href="img/bligo-icon.png" />
-  <title>BliGO : la solution qui digitalise votre médiathèque</title>
-  <meta name="description" content="BliGO, c'est un vrai logiciel de gestion pour les agents de médiathèque et une application gratuite pour les habitants : catalogue, réservation Click & Collect, agenda culturel et dons participatifs." />
+  <title>BliGO : logiciel de gestion de bibliothèque (SIGB) et appli pour les habitants</title>
+  <meta name="description" content="BliGO est un logiciel de gestion de bibliothèque (SIGB) nouvelle génération pour les Médiathèques Municipales et les intercommunalités, avec une application gratuite pour les habitants : catalogue, Click &amp; Collect, agenda culturel, dons de livres." />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://bligo.fr/" />
 
@@ -22,28 +22,144 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="style.css?v=20260904" />
-
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "BliGO",
-    "alternateName": "Bligo",
-    "url": "https://bligo.fr/",
-    "logo": "https://bligo.fr/img/bligo-logo.png",
-    "description": "BliGO est le logiciel de gestion des médiathèques et l'application gratuite qui connecte les habitants à leur Médiathèque Municipale : catalogue, réservation Click & Collect, agenda culturel et dons participatifs.",
-    "email": "megane@bligo.fr",
-    "areaServed": ["France", "Guadeloupe", "Martinique"]
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "BliGO",
-    "alternateName": ["Bligo", "bligo.fr"],
-    "url": "https://bligo.fr/"
-  }
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://bligo.fr/#org",
+      "name": "BliGO",
+      "alternateName": [
+        "Bligo",
+        "bligo.fr"
+      ],
+      "url": "https://bligo.fr/",
+      "logo": "https://bligo.fr/img/bligo-logo.png",
+      "email": "megane@bligo.fr",
+      "areaServed": [
+        "France",
+        "Guadeloupe",
+        "Martinique",
+        "DROM-COM"
+      ],
+      "description": "BliGO édite un logiciel de gestion de bibliothèque (SIGB) nouvelle génération pour les Médiathèques Municipales et les intercommunalités, couplé à une application gratuite pour les habitants."
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://bligo.fr/#software",
+      "name": "BliGO",
+      "alternateName": "BliGO, logiciel de gestion de médiathèque",
+      "url": "https://bligo.fr/",
+      "publisher": {
+        "@id": "https://bligo.fr/#org"
+      },
+      "applicationCategory": "BusinessApplication",
+      "applicationSubCategory": "Système intégré de gestion de bibliothèque (SIGB) et portail usager",
+      "operatingSystem": "Web, Windows, macOS",
+      "inLanguage": "fr",
+      "image": "https://bligo.fr/img/bligo-logo.png",
+      "description": "BliGO est un SIGB moderne et complet, pensé pour les Médiathèques Municipales et les intercommunalités : il remplace le SIGB et le portail usager existants. Catalogage par scan ISBN avec notices BnF, prêts et retours à la douchette ou au smartphone, gestion des exemplaires et des cotes, transferts entre Médiathèques du territoire, agenda culturel, export CSV et UNIMARC. Application gratuite pour les habitants : catalogue en ligne, réservation Click & Collect, agenda culturel, dons de livres.",
+      "featureList": [
+        "Catalogage par scan ISBN (BnF, Google Books, Open Library)",
+        "Prêt, retour et rangement à la douchette USB ou au smartphone",
+        "Suivi individuel des exemplaires et cotes de rangement",
+        "Base commune et transferts entre Médiathèques d'une intercommunalité",
+        "Agenda culturel avec inscriptions",
+        "Portail et application gratuite pour les habitants",
+        "Réservation Click & Collect",
+        "Dons de livres participatifs validés par un agent",
+        "Personnalisation aux couleurs de la commune",
+        "Export du catalogue en CSV et UNIMARC",
+        "Reprise du fonds depuis un autre SIGB (UNIMARC/CSV)",
+        "Conforme RGPD"
+      ],
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "Mairies, intercommunalités (EPCI), Médiathèques Municipales"
+      },
+      "offers": {
+        "@type": "Offer",
+        "description": "Tarif selon la taille de la commune ou de l'intercommunalité, contrat d'un an renouvelable. Application gratuite pour les habitants.",
+        "url": "https://bligo.fr/mairies-collectivites.html"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://bligo.fr/#website",
+      "name": "BliGO",
+      "alternateName": [
+        "Bligo",
+        "bligo.fr"
+      ],
+      "url": "https://bligo.fr/",
+      "publisher": {
+        "@id": "https://bligo.fr/#org"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Qu'est-ce que BliGO ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "BliGO est un logiciel de gestion de bibliothèque (SIGB) nouvelle génération, conçu pour les Médiathèques Municipales et les intercommunalités, couplé à une application gratuite pour les habitants. Côté agents : catalogage en scannant l'ISBN (notices récupérées automatiquement depuis la BnF, Google Books et Open Library), prêts et retours à la douchette ou au smartphone, suivi de chaque exemplaire, transferts entre Médiathèques du territoire et agenda culturel. Côté habitants : catalogue en ligne, réservation Click & Collect, agenda culturel et dons de livres. Disponible partout en France, DROM-COM compris."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "BliGO peut-il remplacer notre SIGB actuel ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Oui. BliGO remplace à la fois votre SIGB et votre portail usager : un seul outil pour les agents et pour les habitants. Votre fonds est repris à partir d'un export UNIMARC ou CSV de votre système actuel (Koha, PMB, Orphée, Decalog…), sans tout recataloguer. Vos données vous appartiennent : vous pouvez exporter votre catalogue en CSV ou UNIMARC à tout moment, et le contrat est d'un an renouvelable."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "BliGO est-il gratuit pour les habitants ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Oui. L'application est gratuite pour les usagers, sans publicité ni abonnement. Le prêt des livres via la médiathèque de leur commune est lui aussi totalement gratuit : c'est un service proposé par leur commune de rattachement. Chaque habitant inscrit à sa médiathèque peut emprunter 3 livres pour une durée maximale variable selon la commune (entre 2 et 4 semaines)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Faut-il installer une application ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Non, pas forcément. BliGO fonctionne directement dans un navigateur, sur téléphone comme sur ordinateur. Les applications iOS et Android arriveront prochainement."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Mes données personnelles sont-elles protégées ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Oui. Pré-inscription en ligne dans la commune de résidence, puis validation sur place par un agent avec pièce d'identité et justificatif de domicile (autorisation parentale en plus pour les mineurs). Aucun document administratif n'est demandé par BliGO, et la gestion des données respecte le RGPD, du compte habitant jusqu'au don de livre."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Comment ma commune peut-elle proposer BliGO à ses habitants ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Votre commune doit nous contacter via le formulaire ci-dessous : on planifie un premier échange pour comprendre vos besoins et vous présenter l'outil BliGO."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Que deviennent les livres donnés par les habitants ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Un agent de la médiathèque examine chaque don depuis le logiciel avant de l'ajouter au catalogue. Si les livres donnés sont en mauvais état ou déjà présents dans le catalogue, ils sont proposés sur une étagère hors condition : n'importe qui peut alors les prendre, même sans être rattaché à la commune, sans jamais devoir les rendre ni faire de don en retour."
+          }
+        }
+      ]
+    }
+  ]
+}
   </script>
 </head>
 <body>
@@ -70,7 +186,7 @@
   <header class="hero">
     <div class="hero-content">
       <h1>BliGO, <span>la solution qui digitalise<br />votre médiathèque</span></h1>
-      <p>Un vrai logiciel de gestion pour vos agents, une application gratuite pour vos habitants : catalogue, réservations Click &amp; Collect, agenda culturel et dons participatifs.</p>
+      <p>Un vrai logiciel de gestion de bibliothèque (SIGB) pour vos agents, une application gratuite pour vos habitants : catalogue, réservations Click &amp; Collect, agenda culturel et dons participatifs.</p>
       <div class="hero-actions">
         <a href="telecharger.html" class="btn btn-mango">Télécharger l'appli</a>
         <a href="#mairies" class="btn btn-outline">Je représente une mairie/collectivité</a>
@@ -211,6 +327,14 @@
         <h2>Vous vous posez sûrement ces questions</h2>
       </div>
       <div class="faq-list">
+        <details class="faq-item">
+          <summary>Qu'est-ce que BliGO ?</summary>
+          <p>BliGO est un logiciel de gestion de bibliothèque (SIGB) nouvelle génération, conçu pour les Médiathèques Municipales et les intercommunalités, couplé à une application gratuite pour les habitants. Côté agents : catalogage en scannant l'ISBN (notices récupérées automatiquement depuis la BnF, Google Books et Open Library), prêts et retours à la douchette ou au smartphone, suivi de chaque exemplaire, transferts entre Médiathèques du territoire et agenda culturel. Côté habitants : catalogue en ligne, réservation Click &amp; Collect, agenda culturel et dons de livres. Disponible partout en France, DROM-COM compris.</p>
+        </details>
+        <details class="faq-item">
+          <summary>BliGO peut-il remplacer notre SIGB actuel ?</summary>
+          <p>Oui. BliGO remplace à la fois votre SIGB et votre portail usager : un seul outil pour les agents et pour les habitants. Votre fonds est repris à partir d'un export UNIMARC ou CSV de votre système actuel (Koha, PMB, Orphée, Decalog…), sans tout recataloguer. Vos données vous appartiennent : vous pouvez exporter votre catalogue en CSV ou UNIMARC à tout moment, et le contrat est d'un an renouvelable.</p>
+        </details>
         <details class="faq-item">
           <summary>BliGO est-il gratuit pour les habitants ?</summary>
           <p>Oui. L'application est gratuite pour les usagers, sans publicité ni abonnement. Le prêt des livres via la médiathèque de leur commune est lui aussi totalement gratuit : c'est un service proposé par leur commune de rattachement. Chaque habitant inscrit à sa médiathèque peut emprunter 3 livres pour une durée maximale variable selon la commune (entre 2 et 4 semaines).</p>
