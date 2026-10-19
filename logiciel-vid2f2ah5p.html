@@ -27,6 +27,18 @@
     .install-card li { margin-bottom: 0.5rem; }
     .install-card strong { color: var(--ink); }
     .section-title-sm { font-family: 'Poppins', sans-serif; text-align: center; font-size: 1.5rem; margin: 0 0 1.5rem; }
+    .login-card { max-width: 420px; margin: 3rem auto; background: var(--white); border-radius: var(--radius); padding: 2rem 1.75rem; box-shadow: 0 8px 24px rgba(18, 63, 58, 0.08); }
+    .login-card h3 { margin: 0 0 0.4rem; text-align: center; }
+    .login-card > p { color: var(--ink-soft); font-size: 0.92rem; margin: 0 0 1.5rem; text-align: center; }
+    .login-card label { display: block; font-size: 0.85rem; font-weight: 600; margin: 0 0 0.35rem; }
+    .login-card input { width: 100%; box-sizing: border-box; border: 1.5px solid #E5E7EB; border-radius: 12px; padding: 0.8rem 1rem; font: inherit; font-size: 16px; margin: 0 0 1rem; }
+    .login-card input:focus { outline: none; border-color: var(--mango); }
+    .login-card .btn { width: 100%; }
+    .login-error { color: #C92C61; font-size: 0.88rem; font-weight: 600; text-align: center; margin: 0.9rem 0 0; min-height: 1.2em; }
+    .login-help { text-align: center; font-size: 0.85rem; margin: 1rem 0 0; }
+    .login-help a, .signed-in a { color: var(--mango-dark); font-weight: 700; }
+    .signed-in { text-align: center; color: var(--ink-soft); font-size: 0.9rem; margin: 2.5rem 0 -1.5rem; }
+    [hidden] { display: none !important; }
   </style>
 </head>
 <body>
@@ -58,6 +70,23 @@
 
   <section class="section">
     <div class="section-container">
+      <!-- Connexion avec le compte BliGO de l'agent (19/10/2026) : chacun son
+           mot de passe ; seuls les comptes agent, direction ou super admin
+           obtiennent les liens (espace privé Supabase, liens valables 10 min). -->
+      <form id="login-form" class="login-card">
+        <h3>Accès réservé aux équipes</h3>
+        <p>Connectez-vous avec votre compte BliGO pour télécharger le logiciel.</p>
+        <label for="login-email">E-mail</label>
+        <input id="login-email" type="email" autocomplete="username" required />
+        <label for="login-password">Mot de passe</label>
+        <input id="login-password" type="password" autocomplete="current-password" required />
+        <button id="login-btn" type="submit" class="btn btn-mango">Se connecter</button>
+        <p id="login-error" class="login-error" role="alert"></p>
+        <p class="login-help"><a href="https://bligo.app/index.html?login=1" target="_blank" rel="noopener">Mot de passe oublié ?</a></p>
+      </form>
+
+      <div id="downloads" hidden>
+      <p class="signed-in">Connecté : <strong id="signed-in-email"></strong> · <a href="#" id="logout-link">Se déconnecter</a></p>
       <div class="download-grid">
         <div class="download-card">
           <div class="download-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5.5 10.5 4.5v7H3zM12.5 4.2 21 3v8.5h-8.5zM3 12.5h7.5v7L3 18.5zM12.5 12.5H21V21l-8.5-1.2z"/></svg></div>
@@ -66,7 +95,7 @@
             <li>Windows 10 ou Windows 11</li>
             <li>Connexion Internet</li>
           </ul>
-          <a href="telechargement-vid2f2ah5p/BliGO-Agent-Windows.exe" class="btn btn-mango" download>↓ Télécharger pour Windows</a>
+          <a id="link-windows" href="#" class="btn btn-mango">↓ Télécharger pour Windows</a>
         </div>
         <div class="download-card">
           <div class="download-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 8.5c-.8-1-2-1.6-3.3-1.6-1.6 0-2.4.9-3.7.9-1.3 0-2.4-.9-3.9-.9C3.4 6.9 1.5 8.6 1.5 12c0 3.3 2.4 8 4.6 8 1.1 0 1.6-.7 3-.7 1.4 0 1.7.7 3 .7 1.5 0 2.6-1.5 3.4-2.9.6-1 .9-1.9 1.1-2.5-2.8-1-3.3-4.6-.6-6.1Z"/><path d="M13 4.2c.5-.7 1.4-1.3 2.3-1.4-.1 1-.6 2-1.2 2.6-.6.7-1.5 1.2-2.4 1.1 0-.9.5-1.8 1.3-2.3Z"/></svg></div>
@@ -76,7 +105,7 @@
             <li>Puce Apple (M1 à M5) et Intel</li>
             <li>Connexion Internet</li>
           </ul>
-          <a href="telechargement-vid2f2ah5p/BliGO-Agent-Mac.dmg" class="btn btn-mango" download>↓ Télécharger pour Mac</a>
+          <a id="link-mac" href="#" class="btn btn-mango">↓ Télécharger pour Mac</a>
         </div>
       </div>
 
@@ -100,8 +129,10 @@
         </div>
       </div>
 
+      </div>
+
       <div class="notice-box">
-        <h4>Première connexion</h4>
+        <h4>Première connexion au logiciel</h4>
         <p>Au lancement, choisissez votre médiathèque, puis connectez-vous avec le compte BliGO que nous vous avons ouvert. Le logiciel se met à jour tout seul : inutile de le réinstaller. Une question ? <a href="mailto:megane@bligo.fr?subject=Logiciel%20BliGO%20Agent">megane@bligo.fr</a></p>
       </div>
     </div>
@@ -129,5 +160,51 @@
   </footer>
 
   <script src="script.js?v=20260901"></script>
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/+esm';
+
+    // Clé publique du projet BliGO (protégée par les règles d'accès Supabase).
+    const supabase = createClient('https://knlymrujmiapzieavzoe.supabase.co', 'sb_publishable_pH1jBfM5KjsteDvDg_46Ww_mBTsDSdb',
+      { auth: { persistSession: false } });
+    const FILES = { 'link-windows': 'BliGO-Agent-Windows.exe', 'link-mac': 'BliGO-Agent-Mac.dmg' };
+
+    const form = document.getElementById('login-form');
+    const errorEl = document.getElementById('login-error');
+    const button = document.getElementById('login-btn');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorEl.textContent = '';
+      button.disabled = true;
+      button.textContent = 'Connexion…';
+      try {
+        const email = document.getElementById('login-email').value.trim();
+        const { error } = await supabase.auth.signInWithPassword({ email, password: document.getElementById('login-password').value });
+        if (error) { errorEl.textContent = 'E-mail ou mot de passe incorrect.'; return; }
+
+        // L'espace privé ne délivre un lien qu'aux comptes agent / direction / super admin.
+        const links = await Promise.all(Object.entries(FILES).map(([id, file]) =>
+          supabase.storage.from('logiciel-agent').createSignedUrl(file, 600, { download: file }).then(r => [id, r])));
+        if (links.some(([, r]) => r.error || !r.data?.signedUrl)) {
+          await supabase.auth.signOut();
+          errorEl.textContent = 'Ce compte n\'a pas accès au logiciel. Il est réservé aux équipes des médiathèques : contactez megane@bligo.fr.';
+          return;
+        }
+        links.forEach(([id, r]) => { document.getElementById(id).href = r.data.signedUrl; });
+        document.getElementById('signed-in-email').textContent = email;
+        form.hidden = true;
+        document.getElementById('downloads').hidden = false;
+      } finally {
+        button.disabled = false;
+        button.textContent = 'Se connecter';
+      }
+    });
+
+    document.getElementById('logout-link').addEventListener('click', async (e) => {
+      e.preventDefault();
+      await supabase.auth.signOut();
+      location.reload();
+    });
+  </script>
 </body>
 </html>
