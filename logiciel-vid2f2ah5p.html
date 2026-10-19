@@ -42,6 +42,8 @@
     .password-wrap input { padding-right: 3rem; }
     .password-toggle { position: absolute; right: 0.4rem; top: 0.35rem; width: 2.4rem; height: 2.4rem; display: flex; align-items: center; justify-content: center; background: none; border: none; color: var(--ink-soft); cursor: pointer; border-radius: 8px; }
     .password-toggle svg { width: 20px; height: 20px; }
+    .otp-boxes { display: flex; justify-content: space-between; gap: 0.5rem; margin: 0 0 1rem; }
+    .login-card .otp-boxes input { width: 100%; max-width: 3.2rem; height: 3.4rem; margin: 0; padding: 0; text-align: center; font-size: 1.5rem; font-weight: 700; }
     [hidden] { display: none !important; }
   </style>
 </head>
@@ -101,8 +103,15 @@
       <form id="reset-form" class="login-card" hidden>
         <h3>Nouveau mot de passe</h3>
         <p>Saisissez le code à 6 chiffres envoyé à <strong id="reset-email"></strong>, puis votre nouveau mot de passe.</p>
-        <label for="reset-code">Code reçu par e-mail</label>
-        <input id="reset-code" inputmode="numeric" autocomplete="one-time-code" maxlength="6" required />
+        <label for="otp-0">Code reçu par e-mail</label>
+        <div class="otp-boxes" id="otp-boxes">
+          <input id="otp-0" inputmode="numeric" autocomplete="one-time-code" maxlength="1" aria-label="Chiffre 1" />
+          <input inputmode="numeric" maxlength="1" aria-label="Chiffre 2" />
+          <input inputmode="numeric" maxlength="1" aria-label="Chiffre 3" />
+          <input inputmode="numeric" maxlength="1" aria-label="Chiffre 4" />
+          <input inputmode="numeric" maxlength="1" aria-label="Chiffre 5" />
+          <input inputmode="numeric" maxlength="1" aria-label="Chiffre 6" />
+        </div>
         <label for="reset-password">Nouveau mot de passe</label>
         <input id="reset-password" type="password" autocomplete="new-password" minlength="6" required />
         <label for="reset-password-confirm">Confirmation</label>
@@ -247,7 +256,31 @@
       document.getElementById('reset-email').textContent = email;
       form.hidden = true;
       resetForm.hidden = false;
-      document.getElementById('reset-code').focus();
+      otpBoxes.forEach(b => { b.value = ''; });
+      otpBoxes[0].focus();
+    });
+
+    // 6 cases pour le code : un chiffre par case, passage automatique à la
+    // suivante, retour arrière, et collage du code entier dans n'importe laquelle.
+    const otpBoxes = [...document.querySelectorAll('#otp-boxes input')];
+    function fillOtp(from, digits) {
+      digits.split('').forEach((d, i) => { if (otpBoxes[from + i]) otpBoxes[from + i].value = d; });
+      otpBoxes[Math.min(from + digits.length, otpBoxes.length - 1)].focus();
+    }
+    otpBoxes.forEach((box, i) => {
+      box.addEventListener('input', () => {
+        const digits = box.value.replace(/\D/g, '');
+        box.value = '';
+        if (digits) fillOtp(i, digits.slice(0, otpBoxes.length - i));
+      });
+      box.addEventListener('keydown', (e) => {
+        if (e.key === 'Backspace' && !box.value && i > 0) { otpBoxes[i - 1].value = ''; otpBoxes[i - 1].focus(); e.preventDefault(); }
+      });
+      box.addEventListener('paste', (e) => {
+        e.preventDefault();
+        const digits = (e.clipboardData.getData('text') || '').replace(/\D/g, '');
+        if (digits) fillOtp(i, digits.slice(0, otpBoxes.length - i));
+      });
     });
 
     document.getElementById('reset-back').addEventListener('click', (e) => {
@@ -259,7 +292,7 @@
     resetForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const email = document.getElementById('reset-email').textContent;
-      const token = document.getElementById('reset-code').value.replace(/\D/g, '');
+      const token = otpBoxes.map(b => b.value).join('');
       const password = document.getElementById('reset-password').value;
       if (token.length !== 6) { resetError.textContent = 'Le code contient 6 chiffres.'; return; }
       if (password !== document.getElementById('reset-password-confirm').value) { resetError.textContent = 'Les deux mots de passe ne correspondent pas.'; return; }
