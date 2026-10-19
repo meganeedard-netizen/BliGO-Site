@@ -92,7 +92,24 @@
         </div>
         <button id="login-btn" type="submit" class="btn btn-mango">Se connecter</button>
         <p id="login-error" class="login-error" role="alert"></p>
-        <p class="login-help"><a href="https://bligo.app/index.html?login=1" target="_blank" rel="noopener">Mot de passe oublié ?</a></p>
+        <p class="login-help"><a href="#" id="forgot-link">Mot de passe oublié ?</a></p>
+      </form>
+
+      <!-- Mot de passe oublié sur la page même (19/10/2026) : code à 6 chiffres
+           par e-mail puis nouveau mot de passe, comme dans l'appli. Avant, le
+           lien ouvrait bligo.app, déjà connecté au compte habituel du navigateur. -->
+      <form id="reset-form" class="login-card" hidden>
+        <h3>Nouveau mot de passe</h3>
+        <p>Saisissez le code à 6 chiffres envoyé à <strong id="reset-email"></strong>, puis votre nouveau mot de passe.</p>
+        <label for="reset-code">Code reçu par e-mail</label>
+        <input id="reset-code" inputmode="numeric" autocomplete="one-time-code" maxlength="6" required />
+        <label for="reset-password">Nouveau mot de passe</label>
+        <input id="reset-password" type="password" autocomplete="new-password" minlength="6" required />
+        <label for="reset-password-confirm">Confirmation</label>
+        <input id="reset-password-confirm" type="password" autocomplete="new-password" minlength="6" required />
+        <button id="reset-btn" type="submit" class="btn btn-mango">Valider</button>
+        <p id="reset-error" class="login-error" role="alert"></p>
+        <p class="login-help"><a href="#" id="reset-back">Retour à la connexion</a></p>
       </form>
 
       <div id="downloads" hidden>
@@ -182,6 +199,27 @@
     const errorEl = document.getElementById('login-error');
     const button = document.getElementById('login-btn');
 
+    const resetForm = document.getElementById('reset-form');
+    const resetError = document.getElementById('reset-error');
+
+    // Une fois connecté : l'espace privé ne délivre un lien qu'aux comptes
+    // agent / direction / super admin. Renvoie false sinon.
+    async function showDownloads(email) {
+      const links = await Promise.all(Object.entries(FILES).map(([id, file]) =>
+        supabase.storage.from('logiciel-agent').createSignedUrl(file, 600, { download: file }).then(r => [id, r])));
+      if (links.some(([, r]) => r.error || !r.data?.signedUrl)) {
+        await supabase.auth.signOut();
+        return false;
+      }
+      links.forEach(([id, r]) => { document.getElementById(id).href = r.data.signedUrl; });
+      document.getElementById('signed-in-email').textContent = email;
+      form.hidden = true;
+      resetForm.hidden = true;
+      document.getElementById('downloads').hidden = false;
+      return true;
+    }
+    const NO_ACCESS = 'Ce compte n\'a pas accès au logiciel. Il est réservé aux équipes des médiathèques : contactez megane@bligo.fr.';
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       errorEl.textContent = '';
@@ -191,22 +229,50 @@
         const email = document.getElementById('login-email').value.trim();
         const { error } = await supabase.auth.signInWithPassword({ email, password: document.getElementById('login-password').value });
         if (error) { errorEl.textContent = 'E-mail ou mot de passe incorrect.'; return; }
-
-        // L'espace privé ne délivre un lien qu'aux comptes agent / direction / super admin.
-        const links = await Promise.all(Object.entries(FILES).map(([id, file]) =>
-          supabase.storage.from('logiciel-agent').createSignedUrl(file, 600, { download: file }).then(r => [id, r])));
-        if (links.some(([, r]) => r.error || !r.data?.signedUrl)) {
-          await supabase.auth.signOut();
-          errorEl.textContent = 'Ce compte n\'a pas accès au logiciel. Il est réservé aux équipes des médiathèques : contactez megane@bligo.fr.';
-          return;
-        }
-        links.forEach(([id, r]) => { document.getElementById(id).href = r.data.signedUrl; });
-        document.getElementById('signed-in-email').textContent = email;
-        form.hidden = true;
-        document.getElementById('downloads').hidden = false;
+        if (!await showDownloads(email)) errorEl.textContent = NO_ACCESS;
       } finally {
         button.disabled = false;
         button.textContent = 'Se connecter';
+      }
+    });
+
+    document.getElementById('forgot-link').addEventListener('click', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('login-email').value.trim();
+      if (!email) { errorEl.textContent = 'Indiquez d\'abord votre e-mail ci-dessus, puis cliquez à nouveau sur « Mot de passe oublié ? ».'; return; }
+      errorEl.textContent = 'Envoi du code…';
+      const { error } = await supabase.auth.resetPasswordForEmail(email);
+      if (error) { errorEl.textContent = 'Envoi impossible pour le moment, réessayez dans une minute.'; return; }
+      errorEl.textContent = '';
+      document.getElementById('reset-email').textContent = email;
+      form.hidden = true;
+      resetForm.hidden = false;
+      document.getElementById('reset-code').focus();
+    });
+
+    document.getElementById('reset-back').addEventListener('click', (e) => {
+      e.preventDefault();
+      resetForm.hidden = true;
+      form.hidden = false;
+    });
+
+    resetForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('reset-email').textContent;
+      const token = document.getElementById('reset-code').value.replace(/\D/g, '');
+      const password = document.getElementById('reset-password').value;
+      if (token.length !== 6) { resetError.textContent = 'Le code contient 6 chiffres.'; return; }
+      if (password !== document.getElementById('reset-password-confirm').value) { resetError.textContent = 'Les deux mots de passe ne correspondent pas.'; return; }
+      resetError.textContent = 'Vérification…';
+      const { error } = await supabase.auth.verifyOtp({ email, token, type: 'recovery' });
+      if (error) { resetError.textContent = 'Code incorrect ou expiré. Vérifiez-le ou revenez à la connexion pour en demander un nouveau.'; return; }
+      const { error: updateError } = await supabase.auth.updateUser({ password });
+      if (updateError) { resetError.textContent = updateError.message; return; }
+      resetError.textContent = '';
+      if (!await showDownloads(email)) {
+        resetForm.hidden = true;
+        form.hidden = false;
+        errorEl.textContent = 'Mot de passe modifié. ' + NO_ACCESS;
       }
     });
 
