@@ -279,29 +279,6 @@ a { color: inherit; text-decoration: none; }
   .annotate-label--br { top: 85%; left: calc(100% + 20px); }
 }
 
-/* Tablette et mobile : pastilles alignées sous le téléphone, pour ne jamais cacher l'écran de l'appli */
-@media (max-width: 860px) {
-  .annotate-labels {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.5rem;
-    margin-top: 1.25rem;
-  }
-
-  .annotate-label {
-    display: block;
-    position: static;
-    animation: none;
-  }
-
-  .annotate-label .annotate-title {
-    font-size: 0.75rem;
-    padding: 0.35rem 0.65rem;
-    white-space: nowrap;
-  }
-}
-
 /* BUTTONS */
 .btn {
   display: inline-flex;
