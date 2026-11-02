@@ -279,26 +279,26 @@ a { color: inherit; text-decoration: none; }
   .annotate-label--br { top: 85%; left: calc(100% + 20px); }
 }
 
-/* Mobile : le téléphone garde sa taille normale, petites pastilles posées sur ses bords */
+/* Tablette et mobile : pastilles alignées sous le téléphone, pour ne jamais cacher l'écran de l'appli */
 @media (max-width: 860px) {
-  .annotate-labels { display: block; }
+  .annotate-labels {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1.25rem;
+  }
 
   .annotate-label {
     display: block;
-    position: absolute;
-    width: 92px;
+    position: static;
     animation: none;
-    z-index: 2;
   }
 
-  .annotate-label--tl { top: 5%; left: -10px; }
-  .annotate-label--mr { top: 37%; right: -10px; }
-  .annotate-label--bl { top: 73%; left: -10px; }
-  .annotate-label--br { top: 83%; right: -10px; }
-
   .annotate-label .annotate-title {
-    font-size: 0.62rem;
-    padding: 0.3rem 0.45rem;
+    font-size: 0.75rem;
+    padding: 0.35rem 0.65rem;
+    white-space: nowrap;
   }
 }
 
